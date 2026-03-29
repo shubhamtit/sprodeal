@@ -18,6 +18,9 @@
       --border: #e0e0e0;
       --btn-disabled: #c8c8c8;
     }
+    html, body {
+      height: 100%;
+    }
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--bg);
@@ -29,57 +32,63 @@
     .phone-frame {
       width: 100%;
       max-width: 400px;
-      min-height: 100vh;
+      height: 100vh;
       background: var(--bg);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       position: relative;
     }
+
+    /* ── Banner: slightly less padding ── */
     .banner {
       background: var(--green);
-      padding: 48px 24px 72px;
+      padding: 36px 24px 60px;       /* was 48px top, 72px bottom */
       text-align: center;
       position: relative;
       clip-path: ellipse(120% 100% at 50% 0%);
+      flex-shrink: 0;
     }
     .brand-name {
       color: var(--white);
-      font-size: 13px;
+      font-size: 12px;               /* was 13px */
       font-weight: 700;
       letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;            /* was 10px */
     }
     .logo-wrap {
       display: flex;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;           /* was 12px */
     }
     .logo-wrap svg {
-      width: 72px;
-      height: 72px;
+      width: 62px;                   /* was 72px */
+      height: 62px;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
     }
     .tagline {
       color: var(--white);
-      font-size: 13.5px;
+      font-size: 12px;               /* was 13.5px */
       font-weight: 400;
       letter-spacing: 0.2px;
       opacity: 0.95;
     }
+
+    /* ── Form area ── */
     .form-area {
       flex: 1;
-      padding: 44px 28px 32px;
+      padding: 28px 24px 20px;       /* was 44px 28px 32px */
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
     .form-title {
-      font-size: 22px;
+      font-size: 18px;               /* was 22px */
       font-weight: 800;
       color: var(--text);
       text-align: center;
       letter-spacing: 0.5px;
-      margin-bottom: 32px;
+      margin-bottom: 22px;           /* was 32px */
       text-transform: uppercase;
     }
     .form-title span {
@@ -88,10 +97,10 @@
       text-underline-offset: 3px;
     }
     .field-label {
-      font-size: 13px;
+      font-size: 12px;               /* was 13px */
       font-weight: 500;
       color: #333;
-      margin-bottom: 8px;
+      margin-bottom: 6px;            /* was 8px */
       display: block;
     }
     .input-wrap {
@@ -100,14 +109,14 @@
       background: var(--white);
       border: 1.5px solid var(--border);
       border-radius: 30px;
-      padding: 0 18px;
-      height: 52px;
-      margin-bottom: 22px;
+      padding: 0 16px;
+      height: 46px;                  /* was 52px */
+      margin-bottom: 16px;           /* was 22px */
       transition: border-color 0.2s;
     }
     .input-wrap:focus-within { border-color: var(--green); }
     .country-code {
-      font-size: 14px;
+      font-size: 13px;               /* was 14px */
       font-weight: 600;
       color: var(--text);
       margin-right: 8px;
@@ -120,56 +129,71 @@
       border: none;
       outline: none;
       font-family: 'Poppins', sans-serif;
-      font-size: 13.5px;
+      font-size: 12.5px;             /* was 13.5px */
       color: var(--text);
       background: transparent;
     }
     .input-wrap input::placeholder { color: var(--muted); }
+
     .btn-signin {
       width: 100%;
-      height: 52px;
+      height: 46px;                  /* was 52px */
       background: var(--btn-disabled);
       border: none;
       border-radius: 10px;
       color: var(--white);
       font-family: 'Poppins', sans-serif;
-      font-size: 15px;
+      font-size: 13.5px;             /* was 15px */
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       cursor: pointer;
-      margin-top: 4px;
+      margin-top: 2px;
       transition: background 0.2s, transform 0.1s;
     }
     .btn-signin:hover { background: var(--green); transform: translateY(-1px); }
     .btn-signin:active { transform: translateY(0); }
+
     .privacy-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 18px;
-      font-size: 12.5px;
+      gap: 7px;
+      margin-top: 14px;              /* was 18px */
+      font-size: 11.5px;             /* was 12.5px */
       color: #555;
     }
-    .check-icon { width: 20px; height: 20px; flex-shrink: 0; }
+    .check-icon { width: 18px; height: 18px; flex-shrink: 0; } /* was 20px */
     .privacy-row a { color: var(--green-text); font-weight: 600; text-decoration: none; }
     .privacy-row a:hover { text-decoration: underline; }
+
     .create-account {
       display: block;
       text-align: center;
-      margin-top: 22px;
-      font-size: 14px;
+      margin-top: 14px;              /* was 22px */
+      font-size: 13px;               /* was 14px */
       font-weight: 600;
       color: var(--green-text);
       text-decoration: none;
     }
     .create-account:hover { text-decoration: underline; }
+
+    .error-msg {
+      background: #ffe5e5;
+      color: #c0392b;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
     .fab {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 52px;
-      height: 52px;
+      bottom: 20px;
+      right: 20px;
+      width: 46px;                   /* was 52px */
+      height: 46px;
       background: #29a9eb;
       border-radius: 50%;
       display: flex;
@@ -180,17 +204,7 @@
       transition: transform 0.2s;
     }
     .fab:hover { transform: scale(1.08); }
-    .fab svg { width: 26px; height: 26px; }
-    .error-msg {
-      background: #ffe5e5;
-      color: #c0392b;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 16px;
-      text-align: center;
-    }
+    .fab svg { width: 22px; height: 22px; } /* was 26px */
   </style>
 </head>
 <body>
@@ -228,7 +242,8 @@
         <label class="field-label" for="phone">Phone</label>
         <div class="input-wrap">
           <span class="country-code">+91 |</span>
-          <input id="phone" name="phone" type="tel" placeholder="Please enter phone number" required />
+          <input id="phone" name="phone" type="tel" placeholder="Please enter phone number"
+                 maxlength="10" inputmode="numeric" pattern="[0-9]{10}" required />
         </div>
 
         <label class="field-label" for="password">Password</label>
@@ -236,7 +251,7 @@
           <input id="password" name="password" type="password" placeholder="Please enter password" required />
         </div>
 
-        <button type="submit" class="btn-signin">SIGN IN</button>
+        <button type="submit" class="btn-signin" id="btn-signin" disabled>SIGN IN</button>
       </form>
 
       <div class="privacy-row">
@@ -256,5 +271,32 @@
       </svg>
     </div>
   </div>
+
+  <script>
+    const phoneInput = document.getElementById('phone');
+    const passwordInput = document.getElementById('password');
+    const signInBtn = document.getElementById('btn-signin');
+
+    // Phone: only allow digits, max 10
+    phoneInput.addEventListener('input', () => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
+      checkForm();
+    });
+    phoneInput.addEventListener('keydown', (e) => {
+      // Block non-numeric keys (allow control keys)
+      if (!/^\d$/.test(e.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab'].includes(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+    // Password: enable button when 6+ chars
+    passwordInput.addEventListener('input', checkForm);
+
+    function checkForm() {
+      const ready = passwordInput.value.length >= 6;
+      signInBtn.disabled = !ready;
+      signInBtn.style.background = ready ? 'var(--green)' : '';
+    }
+  </script>
 </body>
 </html>

